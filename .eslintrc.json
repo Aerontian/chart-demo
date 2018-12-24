@@ -1,0 +1,28 @@
+{
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "globals": {
+        "Vue": true,
+        "$": true,
+        "interact": true,
+        "toastr": true
+    },
+    "rules": {
+        "quotes": 0,
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": 0,
+        "no-extra-boolean-cast": 0,
+        "no-unused-vars": "off"
+    }
+}
