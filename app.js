@@ -8,12 +8,12 @@ const serve = require("koa-static");
 const path = require("path");
 const cors = require("./customMiddleware/cors");
 const options = require("./customMiddleware/options");
-
+const config = require("./config");
 const root = path.resolve(__dirname, "static");
 
 const app = new Koa();
 
-const port = 8080;
+const port = config.port;
 
 app.use(compress());
 app.use(logger);

@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const axios = require("axios").default;
 const request = require("request");
 const dir = path.resolve(__dirname, "../data.json");
 
@@ -39,7 +38,7 @@ module.exports = () => {
 
   /* keep requesting data */
   setInterval(() => {
-    request("http://127.0.0.1/mock", (err, resp) => {
+    request("http://127.0.0.1:8080/mock", (err, resp) => {
       if (!err) {
         let data = JSON.parse(resp.body).data;
         if (data) {
