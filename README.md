@@ -45,10 +45,16 @@ module.exports = {
 };
 ```
 
+在 static/index.html 里面可以修改图表的标题等配置
+
 ## 运行
 
 ```shell
   node app.js
 ```
 
-运行成功后在浏览器打开 localhost:8080 即可
+运行成功后在浏览器打开 localhost:8080
+
+## 注意事项
+
+1. app 请求的数据全部存储在当前目录 data.json 中，每天 00：00 清除数据，也可以手动删除它
