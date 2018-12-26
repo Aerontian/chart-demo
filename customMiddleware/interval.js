@@ -8,6 +8,10 @@ const initData = {
   series: [],
 };
 
+const api = "http://127.0.0.1:8080/mock"; // 修改为真实接口地址， 这是模拟接口
+
+const interval = 10; // 请求接口的间隔秒数， 每间隔一段时间向data.josn 写入一条数据
+
 const addZero = val => {
   return String(val).length == 1 ? `0${val}` : `${val}`;
 };
@@ -38,7 +42,7 @@ module.exports = () => {
 
   /* keep requesting data */
   setInterval(() => {
-    request("http://127.0.0.1:8080/mock", (err, resp) => {
+    request(api, (err, resp) => {
       if (!err) {
         let data = JSON.parse(resp.body).data;
         if (data) {
@@ -48,5 +52,5 @@ module.exports = () => {
         }
       }
     });
-  }, 5000);
+  }, interval * 1000);
 };
