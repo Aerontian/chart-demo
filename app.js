@@ -13,7 +13,7 @@ const root = path.resolve(__dirname, "static");
 
 const app = new Koa();
 
-const port = 80;
+const port = 8080;
 
 app.use(compress());
 app.use(logger);
@@ -33,4 +33,4 @@ app.use(options);
 interval();
 
 app.listen(port);
-console.log(`app started ad port ${port}...`);
+console.log(`app started at localhost:${port}...`);
