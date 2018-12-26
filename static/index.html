@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>demo</title>
+    <style>
+      #main {
+        max-width: 1200px;
+        height: 600px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+  </body>
+  <script src="echarts.min.js"></script>
+  <script src="axios.min.js"></script>
+  <script>
+    /* globals echarts, axios */
+
+    function Controller() {
+      this.chart = echarts.init(document.getElementById("main"));
+    }
+
+    Controller.prototype.init = function() {
+      var self = this;
+      self.getData(function(data) {
+        self.draw(data);
+      });
+      setInterval(function() {
+        self.getData(function(data) {
+          self.draw(data);
+        });
+      }, 5000);
+    };
+
+    Controller.prototype.getData = function(callback) {
+      axios
+        .get("/getData")
+        .then(function(response) {
+          callback(response.data.data);
+        })
+        .catch(function() {
+          alert("服务未启动");
+        });
+    };
+
+    Controller.prototype.draw = function(data) {
+      var option = {
+        title: {
+          text: "这是标题",
+        },
+        tooltip: {
+          trigger: "axis",
+        },
+        legend: {
+          data: ["数值"],
+        },
+        xAxis: {
+          data: data.xAxis,
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "数值",
+            type: "line",
+            data: data.series,
+            smooth: true,
+          },
+        ],
+      };
+
+      this.chart.setOption(option);
+    };
+
+    var controller = new Controller();
+    controller.init();
+  </script>
+</html>
