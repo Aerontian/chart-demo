@@ -2,15 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const request = require("request");
 const dir = path.resolve(__dirname, "../data.json");
+const config = require("../config");
 
 const initData = {
   xAxis: [],
   series: [],
 };
-
-const api = "http://127.0.0.1:8080/mock"; // 修改为真实接口地址， 这是模拟接口
-
-const interval = 10; // 请求接口的间隔秒数， 每间隔一段时间向data.josn 写入一条数据
 
 const addZero = val => {
   return String(val).length == 1 ? `0${val}` : `${val}`;
@@ -42,7 +39,7 @@ module.exports = () => {
 
   /* keep requesting data */
   setInterval(() => {
-    request(api, (err, resp) => {
+    request(config.api, (err, resp) => {
       if (!err) {
         let data = JSON.parse(resp.body).data;
         if (data) {
@@ -52,5 +49,5 @@ module.exports = () => {
         }
       }
     });
-  }, interval * 1000);
+  }, config.interval * 1000);
 };
